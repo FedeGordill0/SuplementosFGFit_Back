@@ -53,28 +53,6 @@ namespace SuplementosFGFit_Back.Controllers
 
         }
 
-        //[Authorize]
-        //[HttpGet]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<ActionResult<APIResponse>> GetProductos()
-        //{
-        //    try
-        //    {
-        //        _logger.LogInformation("Obtener todas los Productos");
-        //        IEnumerable<Producto> productoList = await _productoRepo.ObtenerTodos();
-
-        //        _response.Resultado = _mapper.Map<IEnumerable<ProductoDTO>>(productoList);
-        //        _response.StatusCode = HttpStatusCode.OK;
-
-        //        return Ok(_response);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        _response.esExitoso = false;
-        //        _response.ErrorMessages = new List<string> { e.ToString() };
-        //    }
-        //    return _response;
-        //}
 
         [HttpGet("id:int", Name = "GetProducto")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -127,11 +105,7 @@ namespace SuplementosFGFit_Back.Controllers
                     return BadRequest(_response);
                 }
 
-                //if (await _productoRepo.ObtenerID(p => p.Nombre == createDTO.Nombre) != null)
-                //{
-                //    ModelState.AddModelError("Nombre Existe", "El Producto con dicho nombre ya existe");
-                //    return BadRequest(_response);
-                //}
+               
 
                 if (string.IsNullOrEmpty(createDTO.Nombre) || string.IsNullOrEmpty(createDTO.Descripcion) || string.IsNullOrEmpty(createDTO.Imagen) || string.IsNullOrEmpty(createDTO.Marca))
                 {

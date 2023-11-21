@@ -19,9 +19,7 @@ public partial class ProveedoreDTO
 
     public string Telefono { get; set; } = null!;
 
-    public int? IdArea { get; set; }
 
-    //public virtual Area? IdAreaNavigation { get; set; }
 
     public virtual ICollection<OrdenesCompra> OrdenesCompras { get; } = new List<OrdenesCompra>();
 

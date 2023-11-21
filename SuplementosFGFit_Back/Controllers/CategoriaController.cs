@@ -96,49 +96,6 @@ namespace SuplementosFGFit_Back.Controllers
             return _response;
         }
 
-        //[HttpPost]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //public async Task<ActionResult<APIResponse>> PostCategoria([FromBody] CategoriaCreateDTO createDTO)
-        //{
-        //    try
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return BadRequest(ModelState);
-        //        }
-
-        //        if (await _categoriaRepo.ObtenerID(c => c.Nombre == createDTO.Nombre) != null)
-        //        {
-        //            ModelState.AddModelError("Nombre Existe", "La categoría con este nombre ya existe");
-        //            return BadRequest(ModelState);
-        //        }
-
-        //        if (createDTO == null)
-        //        {
-        //            return BadRequest(createDTO);
-        //        }
-
-        //        Categoria categoria = _mapper.Map<Categoria>(createDTO);
-
-        //        await _categoriaRepo.Crear(categoria);
-
-        //        _response.Resultado = categoria;
-        //        _response.StatusCode = HttpStatusCode.Created;
-
-        //        return CreatedAtRoute("GetCategoria", new { id = categoria.IdCategoria }, _response);
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        _response.esExitoso = false;
-        //        _response.ErrorMessages = new List<string> { e.ToString() };
-        //    }
-        //    return _response;
-        //}
-
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

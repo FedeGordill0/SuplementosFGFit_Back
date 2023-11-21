@@ -22,9 +22,6 @@ public partial class ProductoCreateDTO
 
     public virtual ICollection<DetalleOrden> DetalleOrdens { get; } = new List<DetalleOrden>();
 
-    //public virtual Categoria? IdCategoriaNavigation { get; set; }
-
-    //public virtual UnidadesMedidum? IdUnidadMedidaNavigation { get; set; }
 
     public virtual ICollection<ProductosXproveedore> ProductosXproveedores { get; } = new List<ProductosXproveedore>();
 }

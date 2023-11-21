@@ -162,18 +162,16 @@ namespace SuplementosFGFit_Back.Controllers
                     return BadRequest("Error de formato en los campos.");
                 }
 
-                // Crear el proveedor
                 Proveedore proveedor = _mapper.Map<Proveedore>(createDTO);
                 proveedor.Estado = true;
                 await _proveedorRepo.Crear(proveedor);
 
-                // Asociar el proveedor con las formas de envío
+                
                 foreach (var formaEnvioId in createDTO.FormasEnvioIds)
                 {
                     var formaEnvio = await _db.FormasEnvios.FindAsync(formaEnvioId);
                     if (formaEnvio != null)
                     {
-                        // Asociar el proveedor con la forma de envío
                         var proveedorFormaEnvio = new ProveedoresXformaEnvio
                         {
                             IdProveedor = proveedor.IdProveedor,
@@ -181,13 +179,13 @@ namespace SuplementosFGFit_Back.Controllers
                         };
                         _db.ProveedoresXformaEnvios.Add(proveedorFormaEnvio);
                     }
-                }// Asociar el proveedor con las formas de pago
+                }
                 foreach (var formaPagoId in createDTO.FormasPagoIds)
                 {
                     var formaPago = await _db.FormasPagos.FindAsync(formaPagoId);
                     if (formaPago != null)
                     {
-                        // Asociar el proveedor con la forma de envío
+                        
                         var proveedorFormaPago = new ProveedoresXformaPago
                         {
                             IdProveedor = proveedor.IdProveedor,
@@ -206,7 +204,7 @@ namespace SuplementosFGFit_Back.Controllers
 
                         if (producto != null)
                         {
-                            // Asociar el proveedor con la forma de envío
+                            
                             var proveedorProducto = new ProductosXproveedore
                             {
                                 IdProveedor = proveedor.IdProveedor,
@@ -217,7 +215,7 @@ namespace SuplementosFGFit_Back.Controllers
                         }
                     }
                 }
-                await _db.SaveChangesAsync();  // Guardar los cambios en la base de datos
+                await _db.SaveChangesAsync();  
 
                 _response.Resultado = proveedor;
                 _response.StatusCode = HttpStatusCode.Created;
@@ -270,68 +268,9 @@ namespace SuplementosFGFit_Back.Controllers
             return BadRequest(_response);
         }
 
-        //[HttpPut("{id:int}")]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //public async Task<IActionResult> PutProveedor([FromBody] ProveedoreUpdateDTO updateDTO, int id)
-        //{
-        //    try
-        //    {
-        //        if (updateDTO == null || updateDTO.IdProveedor != id)
-        //        {
-        //            _response.esExitoso = false;
-        //            _response.StatusCode = HttpStatusCode.BadRequest;
-        //            return BadRequest(_response);
-        //        }
-        //        if (string.IsNullOrEmpty(updateDTO.Nombre) || string.IsNullOrEmpty(updateDTO.Direccion) || string.IsNullOrEmpty(updateDTO.Cuit) || string.IsNullOrEmpty(updateDTO.Email) || string.IsNullOrEmpty(updateDTO.Telefono))
-        //        {
-        //            throw new FormatException("Los campos no pueden ser nulos o vacíos.");
-        //        }
-        //        else if (updateDTO.Nombre.Length > 50)
-        //        {
-        //            throw new FormatException("El campo no puede superar los 50 caracteres");
-        //        }
-        //        else if (updateDTO.Direccion.Length > 50)
-        //        {
-        //            throw new FormatException("El campo no puede superar los 50 caracteres");
-        //        }
-        //        else if (updateDTO.Cuit.Length > 50)
-        //        {
-        //            throw new FormatException("El campo no puede superar los 50 caracteres");
-        //        }
-        //        else if (updateDTO.Email.Length > 100)
-        //        {
-        //            throw new FormatException("El campo no puede superar los 100 caracteres");
-        //        }
-        //        else if (updateDTO.Telefono.Length > 50)
-        //        {
-        //            throw new FormatException("El campo no puede superar los 50 caracteres");
-        //        }
+       
 
-        //        else
-        //        {
-
-        //            Proveedore proveedor = _mapper.Map<Proveedore>(updateDTO);
-        //            proveedor.Estado = true;
-        //            await _proveedorRepo.Actualizar(proveedor);
-
-        //            _response.StatusCode = HttpStatusCode.NoContent;
-        //            return Ok(_response);
-        //        }
-        //    }
-        //    catch (FormatException f)
-        //    {
-        //        return BadRequest($"Error de formato: {f.Message}");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        _response.esExitoso = false;
-        //        _response.ErrorMessages = new List<string> { e.ToString() };
-        //    }
-        //    return BadRequest(_response);
-        //}
-
-        //Modificar Estado Orden Compra
+       
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -412,92 +351,7 @@ namespace SuplementosFGFit_Back.Controllers
 
         }
 
-        //[HttpPut("{id:int}")]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //public async Task<IActionResult> PutProveedor(int id, [FromBody] ProveedoreUpdateDTO updateDTO)
-        //{
-        //    try
-        //    {
-        //        if (id != updateDTO.IdProveedor)
-        //        {
-        //            return BadRequest("El ID del proveedor en la URL no coincide con el ID en el cuerpo de la solicitud.");
-        //        }
-
-        //        // Primero, obtén el proveedor que deseas modificar.
-        //        var proveedor = await _db.Proveedores
-        //            .Include(p => p.ProductosXproveedores)
-        //            .Include(p => p.ProveedoresXformaEnvios)
-        //            .Include(p => p.ProveedoresXformaPagos)
-        //            .FirstOrDefaultAsync(p => p.IdProveedor == id);
-
-        //        if (proveedor == null)
-        //        {
-        //            return NotFound("Proveedor no encontrado.");
-        //        }
-
-        //        // Actualiza las propiedades del proveedor con los datos del DTO.
-        //        _mapper.Map(updateDTO, proveedor);
-
-        //        // Actualiza los productos asociados al proveedor.
-        //        var productosIds = updateDTO.ProductosXproveedores.Select(pxfe => pxfe.IdProducto).ToList();
-        //        proveedor.ProductosXproveedores.Clear();
-        //        foreach (var productosId in productosIds)
-        //        {
-        //            var producto = await _db.Productos.FindAsync(productosId);
-        //            if (producto != null)
-        //            {
-        //                var proveedorProducto = new ProductosXproveedore
-        //                {
-        //                    IdProveedor = proveedor.IdProveedor,
-        //                    IdProducto = producto.IdProducto,
-        //                };
-        //                proveedor.ProductosXproveedores.Add(proveedorProducto);
-        //            }
-        //        }
-        //        // Actualiza las formas de envío asociadas al proveedor.
-        //        var formasEnvioIds = updateDTO.ProveedoresXformaEnvios.Select(pxfe => pxfe.IdFormaEnvio).ToList();
-        //        proveedor.ProveedoresXformaEnvios.Clear();
-        //        foreach (var formaEnvioId in formasEnvioIds)
-        //        {
-        //            var formaEnvio = await _db.FormasEnvios.FindAsync(formaEnvioId);
-        //            if (formaEnvio != null)
-        //            {
-        //                var proveedorFormaEnvio = new ProveedoresXformaEnvio
-        //                {
-        //                    IdProveedor = proveedor.IdProveedor,
-        //                    IdFormaEnvio = formaEnvio.IdFormaEnvio
-        //                };
-        //                proveedor.ProveedoresXformaEnvios.Add(proveedorFormaEnvio);
-        //            }
-        //        }
-
-        //        // Actualiza las formas de pago asociadas al proveedor.
-        //        var formasPagoIds = updateDTO.ProveedoresXformaPagos.Select(pxfp => pxfp.IdFormaPago).ToList();
-        //        proveedor.ProveedoresXformaPagos.Clear();
-        //        foreach (var formaPagoId in formasPagoIds)
-        //        {
-        //            var formaPago = await _db.FormasPagos.FindAsync(formaPagoId);
-        //            if (formaPago != null)
-        //            {
-        //                var proveedorFormaPago = new ProveedoresXformaPago
-        //                {
-        //                    IdProveedor = proveedor.IdProveedor,
-        //                    IdFormaPago = formaPago.IdFormaPago
-        //                };
-        //                proveedor.ProveedoresXformaPagos.Add(proveedorFormaPago);
-        //            }
-        //        }
-
-        //        await _db.SaveChangesAsync();
-
-        //        return NoContent(); // Operación exitosa
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest($"Error: {e.Message}");
-        //    }
-        //}
+        
 
     }
 }

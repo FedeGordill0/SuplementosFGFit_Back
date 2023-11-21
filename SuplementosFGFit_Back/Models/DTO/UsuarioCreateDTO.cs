@@ -11,5 +11,4 @@ public partial class UsuarioCreateDTO
 
     public int? IdRol { get; set; }
 
-    //public virtual Role? IdRolNavigation { get; set; }
 }

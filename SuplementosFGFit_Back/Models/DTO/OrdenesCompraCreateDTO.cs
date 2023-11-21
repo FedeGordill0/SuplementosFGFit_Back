@@ -15,13 +15,4 @@ public partial class OrdenesCompraCreateDTO
 
     public int? IdProveedor { get; set; }
 
-    //public virtual ICollection<DetalleOrden> DetalleOrdens { get; } = new List<DetalleOrden>();
-
-    //public virtual EstadoOrdenCompra? IdEstadoOrdenNavigation { get; set; }
-
-    //public virtual FormasEnvio? IdFormaEnvioNavigation { get; set; }
-
-    //public virtual FormasPago? IdFormaPagoNavigation { get; set; }
-
-    //public virtual Proveedore? IdProveedorNavigation { get; set; }
 }

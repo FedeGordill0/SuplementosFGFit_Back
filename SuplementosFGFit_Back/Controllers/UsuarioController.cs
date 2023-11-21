@@ -92,29 +92,6 @@ namespace SuplementosFGFit_Back.Controllers
                     return BadRequest(_response);
                 }
 
-                //if (string.IsNullOrEmpty(createDTO.Nombre) || string.IsNullOrEmpty(createDTO.Descripcion) || string.IsNullOrEmpty(createDTO.Imagen) || string.IsNullOrEmpty(createDTO.Marca))
-                //{
-                //    throw new FormatException("Los campos no pueden ser nulos o vacíos.");
-                //}
-                //else if (createDTO.Nombre.Length > 100)
-                //{
-                //    throw new FormatException("El campo no puede superar los 100 caracteres");
-                //}
-                //else if (createDTO.Descripcion.Length > 100)
-                //{
-                //    throw new FormatException("El campo no puede superar los 100 caracteres");
-                //}
-                //else if (createDTO.Imagen.Length > 1000)
-                //{
-                //    throw new FormatException("El campo no puede superar los 1000 caracteres");
-                //}
-                //else if (createDTO.Marca.Length > 100)
-                //{
-                //    throw new FormatException("El campo no puede superar los 100 caracteres");
-                //}
-
-                //else
-                //{
                 Usuario u = _mapper.Map<Usuario>(createDTO);
                 u.IdRol = 2;
                 await _usuarioRepo.Crear(u);
@@ -151,34 +128,6 @@ namespace SuplementosFGFit_Back.Controllers
             return Ok(resultado_autorizacion);
         }
 
-
-
-        //[HttpPost]
-        //[Route("ObtenerRefreshToken")]
-        //public async Task<IActionResult> ObtenerRefreshToken([FromBody] RefreshTokenRequest request)
-        //{
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var tokenExpiradoSupuestamente = tokenHandler.ReadJwtToken(request.TokenExpirado);
-
-        //    if (tokenExpiradoSupuestamente.ValidTo > DateTime.UtcNow)
-        //    {
-
-        //        return BadRequest(new AutorizacionResponse { Resultado = false, Mensaje = "Token no ha expirado" });
-        //    }
-
-        //    string idUsuario = tokenExpiradoSupuestamente.Claims.First(x => x.Type == JwtRegisteredClaimNames.NameId).Value.ToString();
-
-        //    var autorizacionResponse = await _autorizacionService.DevolverRefreshToken(request, int.Parse(idUsuario));
-
-        //    if (autorizacionResponse.Resultado)
-        //    {
-        //        return Ok(autorizacionResponse);
-        //    }
-        //    else
-        //    {
-        //        return BadRequest(autorizacionResponse);
-        //    }
-        //}
 
         [HttpGet("obtener-roles")]
         public IActionResult ObtenerRoles(int usuarioId)
