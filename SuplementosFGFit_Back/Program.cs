@@ -70,6 +70,7 @@ builder.Services.AddAuthentication(config =>
 });
 
 
+
 builder.Services.AddCors(options => options.AddPolicy(name: "PsOrigins", policy => { policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader(); }));
 
 var app = builder.Build();

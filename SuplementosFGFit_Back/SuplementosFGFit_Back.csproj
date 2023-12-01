@@ -4,6 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>07d55040-ea6a-4e12-b62f-c1f1cd5f2d01</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +21,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
   </ItemGroup>

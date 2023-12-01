@@ -151,7 +151,7 @@ public partial class SuplementosFgfitContext : DbContext
 
         modelBuilder.Entity<HistorialRefreshToken>(entity =>
         {
-            entity.HasKey(e => e.IdHistorialToken).HasName("PK__Historia__03DC48A5E214801A");
+            entity.HasKey(e => e.IdHistorialToken).HasName("PK__Historia__03DC48A5E53D6697");
 
             entity.ToTable("HistorialRefreshToken");
 
@@ -168,7 +168,7 @@ public partial class SuplementosFgfitContext : DbContext
 
             entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.HistorialRefreshTokens)
                 .HasForeignKey(d => d.IdUsuario)
-                .HasConstraintName("FK__Historial__id_us__44FF419A");
+                .HasConstraintName("FK__Historial__id_us__48CFD27E");
         });
 
         modelBuilder.Entity<OrdenesCompra>(entity =>

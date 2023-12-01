@@ -32,25 +32,56 @@ namespace SuplementosFGFit_Back.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> GetOrdenesCompra()
         {
-
-            var ordenCompraList = await _db.OrdenesCompras.Select(or => new
-            {
-                IdOrdenCompra = or.IdOrdenCompra,
-                FechaRegistro = or.FechaRegistro,
-                IdEstadoOrden = or.IdEstadoOrden,
-                IdFormaEnvio = or.IdFormaEnvio,
-                IdFormaPago = or.IdFormaPago,
-                IdProveedor = or.IdProveedor,
-                DetalleOrdens = or.DetalleOrdens,
-                IdEstadoOrdenNavigation = or.IdEstadoOrdenNavigation,
-                IdFormaEnvioNavigation = or.IdFormaEnvioNavigation,
-                IdFormaPagoNavigation = or.IdFormaPagoNavigation,
-                IdProveedorNavigation = or.IdProveedorNavigation,
-            }).ToListAsync();
+            var ordenCompraList = await _db.OrdenesCompras
+                .Include(or => or.DetalleOrdens)
+                    .ThenInclude(det => det.IdProductoNavigation)
+                        .ThenInclude(prod => prod.ProductosXproveedores)
+                .Select(or => new OrdenesCompraDTO
+                {
+                    IdOrdenCompra = or.IdOrdenCompra,
+                    FechaRegistro = or.FechaRegistro,
+                    IdEstadoOrden = or.IdEstadoOrden,
+                    IdFormaEnvio = or.IdFormaEnvio,
+                    IdFormaPago = or.IdFormaPago,
+                    IdProveedor = or.IdProveedor,
+                    DetalleOrdens = or.DetalleOrdens.Select(det => new DetalleOrdenDTO
+                    {
+                        IdDetalle = det.IdDetalle,
+                        Cantidad = det.Cantidad,
+                        Precio = det.Precio,
+                        IdOrdenCompra = det.IdOrdenCompra,
+                        IdProducto = det.IdProducto,
+                        IdProductoNavigation = new Producto
+                        {
+                            IdProducto = det.IdProductoNavigation.IdProducto,
+                            Descripcion = det.IdProductoNavigation.Descripcion,
+                            Estado = det.IdProductoNavigation.Estado,
+                            Imagen = det.IdProductoNavigation.Imagen,
+                            Marca = det.IdProductoNavigation.Marca,
+                            Nombre = det.IdProductoNavigation.Nombre,
+                            IdCategoria = det.IdProductoNavigation.IdCategoria,
+                            IdUnidadMedida = det.IdProductoNavigation.IdUnidadMedida,
+                            FechaVencimiento = det.IdProductoNavigation.FechaVencimiento,
+                            IdCategoriaNavigation = det.IdProductoNavigation.IdCategoriaNavigation,
+                            IdUnidadMedidaNavigation = det.IdProductoNavigation.IdUnidadMedidaNavigation,
+                            ProductosXproveedores = det.IdProductoNavigation.ProductosXproveedores
+                                .Where(px => px.IdProveedor == or.IdProveedor) // Filtra por el proveedor asociado a la orden.
+                                .Select(px => new ProductosXproveedore
+                                {
+                                    IdProductoProveedor = px.IdProductoProveedor,
+                                    Precio = px.Precio,
+                                }).ToList(),
+                        },
+                    }).ToList(),
+                    IdEstadoOrdenNavigation = or.IdEstadoOrdenNavigation,
+                    IdFormaEnvioNavigation = or.IdFormaEnvioNavigation,
+                    IdFormaPagoNavigation = or.IdFormaPagoNavigation,
+                    IdProveedorNavigation = or.IdProveedorNavigation,
+                }).ToListAsync();
 
             return Ok(ordenCompraList);
-
         }
+
 
         [HttpGet("id:int", Name = "GetOrdenCompra")]
         [ProducesResponseType(StatusCodes.Status200OK)]

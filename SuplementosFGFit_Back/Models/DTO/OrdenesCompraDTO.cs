@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuplementosFGFit_Back.Models.DTO;
+using System;
 using System.Collections.Generic;
 
 namespace SuplementosFGFit_Back.Models;
@@ -15,8 +16,7 @@ public partial class OrdenesCompraDTO
     public int? IdFormaPago { get; set; }
 
     public int? IdProveedor { get; set; }
-
-    public virtual ICollection<DetalleOrden> DetalleOrdens { get; } = new List<DetalleOrden>();
+    public virtual ICollection<DetalleOrdenDTO> DetalleOrdens { get; set; } = new List<DetalleOrdenDTO>();
 
     public virtual EstadoOrdenCompra? IdEstadoOrdenNavigation { get; set; }
 

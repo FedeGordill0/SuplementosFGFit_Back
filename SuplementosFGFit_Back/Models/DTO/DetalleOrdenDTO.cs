@@ -14,8 +14,8 @@ public partial class DetalleOrdenDTO
     public int? IdOrdenCompra { get; set; }
 
     public int? IdProducto { get; set; }
+    public virtual ICollection<OrdenesCompraDTO> IdOrdenCompraNavigation { get; set; } = new List<OrdenesCompraDTO>();
 
-    public virtual OrdenesCompra? IdOrdenCompraNavigation { get; set; }
 
     public virtual Producto? IdProductoNavigation { get; set; }
 }

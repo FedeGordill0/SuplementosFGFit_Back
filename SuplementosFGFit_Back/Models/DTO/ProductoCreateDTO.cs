@@ -18,7 +18,7 @@ public partial class ProductoCreateDTO
     public int? IdCategoria { get; set; }
 
     public int? IdUnidadMedida { get; set; }
-    public DateTime? FechaVencimiento { get; set; }
+    public DateTime? FechaVencimiento { get; set; } 
 
     public virtual ICollection<DetalleOrden> DetalleOrdens { get; } = new List<DetalleOrden>();
 

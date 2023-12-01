@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuplementosFGFit_Back.Models.DTO;
+using System;
 using System.Collections.Generic;
 
 namespace SuplementosFGFit_Back.Models;
